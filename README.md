@@ -48,7 +48,7 @@ This project provides a state-of-the-art framework for monocular 3D human pose a
 #### From Source
 
 ```bash
-git clone https://github.com/nayanajitesh09/mhpmr-dev.git
+git clone https://github.com/Rasnap/mhpmr-dev.git
 cd mhpmr-dev
 pip install -e .
 ```
