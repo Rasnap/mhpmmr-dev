@@ -1,0 +1,60 @@
+"""Setup configuration for MHPMR package"""
+
+from setuptools import setup, find_packages
+
+setup(
+    name="mhpmr",
+    version="0.1.0",
+    description="Monocular 3D Human Pose and Mesh Recovery",
+    author="Nayana Jitesh",
+    author_email="nayana@example.com",
+    url="https://github.com/nayanajitesh09/mhpmr-dev",
+    license="MIT",
+    packages=find_packages(where="src"),
+    package_dir={"": "src"},
+    python_requires=">=3.8",
+    install_requires=[
+        "numpy>=1.21.0,<2.0.0",
+        "scipy>=1.7.0",
+        "tensorflow>=2.11.0",
+        "opencv-python>=4.5.0",
+        "pillow>=8.3.0",
+        "matplotlib>=3.4.0",
+        "scikit-image>=0.18.0",
+        "trimesh>=3.9.0",
+        "networkx>=2.6.0",
+        "tqdm>=4.62.0",
+        "pyyaml>=5.4.0",
+        "click>=8.0.0",
+        "pydantic>=1.8.0",
+        "chumpy>=0.70",
+    ],
+    extras_require={
+        "dev": [
+            "pytest>=6.2.0",
+            "pytest-cov>=2.12.0",
+            "pytest-benchmark>=3.4.1",
+            "black>=21.0",
+            "flake8>=3.9.0",
+            "isort>=5.9.0",
+            "mypy>=0.900",
+        ],
+        "torch": [
+            "torch>=1.9.0",
+            "torchvision>=0.10.0",
+        ],
+    },
+    classifiers=[
+        "Development Status :: 4 - Beta",
+        "Intended Audience :: Science/Research",
+        "License :: OSI Approved :: MIT License",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
+        "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    ],
+    include_package_data=True,
+    zip_safe=False,
+)

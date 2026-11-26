@@ -1,0 +1,82 @@
+# MHPMR Configuration File
+# Copy this to your project and modify as needed
+
+model:
+  # Vision Transformer Backbone
+  vit_model: "base"              # Options: tiny, small, base, large
+  vit_pretrained: true           # Load ImageNet pretrained weights
+  vit_freeze_backbone: false      # Freeze backbone during training
+  
+  # Input/Output Dimensions
+  input_size: 384                # Input image size (384x384)
+  num_joints: 17                 # COCO joint format
+  num_vertices: 6890             # SMPL mesh vertices
+  num_shape_params: 10           # SMPL shape parameters
+  num_pose_params: 72            # SMPL pose parameters (24 joints * 3)
+  
+  # Vertex Head Configuration
+  vertex_head_channels: [256, 128]  # Hidden channel dimensions
+  
+  # GNN Refiner Configuration
+  gnn_num_layers: 3              # Number of GNN layers
+  gnn_hidden_dim: 128            # GNN hidden dimension
+  gnn_dropout: 0.1               # Dropout rate
+  
+  # Occlusion Handling
+  use_occlusion_handling: true    # Enable occlusion awareness
+  occlusion_threshold: 0.5        # Confidence threshold for occlusion detection
+  
+  # Training
+  use_mixed_precision: true       # Use mixed precision training
+
+training:
+  # Batch Size and Learning
+  batch_size: 32                 # Training batch size
+  learning_rate: 0.0001          # Initial learning rate
+  weight_decay: 0.00001          # L2 regularization
+  num_epochs: 100                # Number of training epochs
+  warmup_epochs: 5               # Learning rate warmup epochs
+  
+  # Loss Function Weights
+  loss_weights:
+    keypoint_2d: 1.0             # 2D keypoint loss weight
+    keypoint_3d: 1.0             # 3D keypoint loss weight
+    vertex: 0.5                  # Vertex prediction loss weight
+    shape: 0.1                   # Shape parameter loss weight
+    pose_prior: 0.1              # Pose prior regularization
+    occlusion: 0.1               # Occlusion loss weight
+  
+  # Data Augmentation
+  augmentation: true             # Enable augmentation
+  augmentation_prob: 0.5         # Probability of applying augmentation
+  
+  # Validation
+  validation_split: 0.1          # Validation split ratio
+  checkpoint_interval: 5         # Save checkpoint every N epochs
+  early_stopping_patience: 20    # Early stopping patience
+
+inference:
+  device: "cuda:0"               # Compute device (cuda:0, cuda:1, cpu)
+  batch_size: 1                  # Inference batch size
+  return_uncertainty: true       # Return uncertainty estimates
+  return_all_predictions: false  # Return all prediction candidates
+  confidence_threshold: 0.5      # Confidence threshold
+
+data:
+  # Dataset Paths
+  dataset_root: "./data/dataset"      # Root dataset directory
+  cache_dir: "./data/cache"           # Cache directory
+  
+  # Data Processing
+  num_workers: 4                      # Number of data loading workers
+  prefetch_buffer_size: 32            # Prefetch buffer size
+  
+  # Normalization (ImageNet)
+  image_mean: [0.485, 0.456, 0.406]  # RGB mean
+  image_std: [0.229, 0.224, 0.225]   # RGB std deviation
+
+visualization:
+  mesh_color: [0.8, 0.8, 0.8]        # Default mesh color (RGB)
+  skeleton_color: [1.0, 0.0, 0.0]    # Skeleton color (Red)
+  joint_radius: 3                     # Joint circle radius
+  edge_width: 2                       # Skeleton edge width
